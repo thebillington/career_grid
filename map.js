@@ -34,6 +34,9 @@ function setup() {
 
 function draw() {
     clear();
+	textSize(title_height * tile_height - 20);
+	textAlign("center");
+	text("Career Map", width/2, title_height * tile_height - 30);
 	drawSkillsGrid();
 	drawWorkExGrid();
 	drawEducationGrid();
@@ -102,6 +105,10 @@ function drawSkillsGrid() {
 	offset_x = horizontal_padding * tile_width;
 	offset_y = (title_height + 1) * tile_height;
 
+	textSize(tile_height - 4);
+	fill("black");
+	textAlign("left");
+	text("My Skills", offset_x, offset_y - 4);
 	for (var i = 0; i < skills.length; i++) {
 		y_coord = offset_y + (i * tile_height);
 		noFill();
@@ -126,6 +133,10 @@ function drawWorkExGrid() {
 	offset_x = horizontal_padding * tile_width;
 	offset_y = (title_height + 3 + skills.length) * tile_height ;
 
+	textSize(tile_height - 4);
+	fill("black");
+	textAlign("left");
+	text("Main Occupation", offset_x, offset_y - 4);
 	for (var month = 0; month < months; month++) {
 		y_coord = offset_y + (month * tile_height);
 		noFill();
@@ -170,6 +181,10 @@ function drawEducationGrid() {
 	offset_x = horizontal_padding * tile_width;
 	offset_y = (title_height + 5 + skills.length + months) * tile_height ;
 
+	textSize(tile_height - 4);
+	fill("black");
+	textAlign("left");
+	text("Education", offset_x, offset_y - 4);
 	for (var i = 0; i < educations.length; i++) {
 		y_coord = offset_y + (i * tile_height);
 		noFill();
@@ -195,6 +210,10 @@ function drawRolesGrid() {
 	offset_x = horizontal_padding * tile_width;
 	offset_y = (title_height + 7 + skills.length + months + educations.length) * tile_height ;
 
+	textSize(tile_height - 4);
+	fill("black");
+	textAlign("left");
+	text("Main Roles", offset_x, offset_y - 4);
 	for (var i = 0; i < roles.length; i++) {
 		y_coord = offset_y + (i * tile_height);
 		noFill();
@@ -219,6 +238,10 @@ function drawOthersGrid() {
 	offset_x = horizontal_padding * tile_width;
 	offset_y = (title_height + 9 + skills.length + months + educations.length + roles.length) * tile_height ;
 
+	textSize(tile_height - 4);
+	fill("black");
+	textAlign("left");
+	text("Other Roles", offset_x, offset_y - 4);
 	for (var i = 0; i < others.length; i++) {
 		y_coord = offset_y + (i * tile_height);
 		noFill();
