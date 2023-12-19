@@ -53,8 +53,10 @@ function reloadData() {
 		new Education("Leeds Trinity University", "PGCE Computer Science", 2016, 2017)
 	];
 	roles = [
-		new Experience("Sandwell Academy", "Teacher of Computer Science", 7, 2017, 6, 2019),
-		new Experience("Appoly", "Junior Application Developer", 6, 2019, 9, 2020)
+		new Experience("Sandwell Academy", "Teacher", 7, 2017, 6, 2019),
+		new Experience("Appoly", "Junior Developer", 6, 2019, 9, 2020),
+		new Experience("Student Beans", "Engineer", 9, 2020, 1, 2022),
+		new Experience("Student Beans", "Engineering Mgr", 1, 2022, 12, 2023)
 	];
 	others = [
 		new Additional("Lead Volunteer", "Coder Dojo", 2022, 2023)
@@ -134,8 +136,24 @@ function drawWorkExGrid() {
 			year = lowest_year + j;
 			for (k = 0; k < roles.length; k++) {
 				if (year >= roles[k].start_year && year <= roles[k].end_year) {
-					fill(roles[k].colour);
-					break;
+					if (year == roles[k].start_year) {
+						if (month >= roles[k].start_month - 1) {
+							fill(roles[k].colour);
+							break;
+						} else {
+							noFill();
+						}
+					} else if (year == roles[k].end_year) {
+						if (month <= roles[k].end_month - 1) {
+							fill(roles[k].colour);
+							break;
+						} else {
+							noFill();
+						}
+					} else {
+						fill(roles[k].colour);
+						break;
+					}
 				} else {
 					noFill();
 				}
@@ -182,7 +200,7 @@ function drawRolesGrid() {
 		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
 		fill("black");
-		writeText(roles[i].role, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
+		writeText(roles[i].company + " @ " + roles[i].role, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
 			year = lowest_year + j;
 			if (year >= roles[i].start_year && year <= roles[i].end_year) {
@@ -209,7 +227,6 @@ function drawOthersGrid() {
 		writeText(others[i].role, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
 			year = lowest_year + j;
-			console.log(year);
 			if (year >= others[i].start_year && year <= others[i].end_year) {
 				fill(others[i].colour);
 			} else {
