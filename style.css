@@ -6,6 +6,16 @@
     height: 100%;
 }
 
+#file-editor {
+    position: absolute;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    border: 2px solid black;
+    resize: none;
+}
+
 #career-map {
     position: absolute;
     right: 0;

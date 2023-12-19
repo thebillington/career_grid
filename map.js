@@ -28,8 +28,9 @@ function setup() {
 	var cnvHolder = document.getElementById("career-map");
 	var cnv = createCanvas(cnvHolder.offsetWidth, cnvHolder.offsetHeight);
 	cnv.parent("career-map");
-	reloadData();
+	loadExampleData();
 	setupGrid();
+	convertDataToJson();
 }
 
 function draw() {
@@ -45,7 +46,7 @@ function draw() {
 	noLoop();
 }
 
-function reloadData() {
+function loadExampleData() {
 	skills = [
 		new Skill("Programming", 2013, 2023),
 		new Skill("Teaching", 2016, 2023),
@@ -64,6 +65,10 @@ function reloadData() {
 	others = [
 		new Additional("Lead Volunteer", "Coder Dojo", 2022, 2023)
 	];
+}
+
+function convertDataToJson() {
+	convertJson(skills, educations, roles, others);
 }
 
 function calculateYears() {
