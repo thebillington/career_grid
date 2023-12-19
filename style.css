@@ -22,11 +22,24 @@
     top: 90%;
 }
 
+#margin {
+    position: absolute;
+    background-color: black;
+    width: 4px;
+    height: 100%;
+    top: 0;
+    left: 40%;
+    z-index: 1;
+}
+
+#margin:hover {
+    cursor: ew-resize;
+}
+
 #career-map {
     position: absolute;
     right: 0;
     top: 0;
     width: 60%;
     height: 100%;
-    border-left: 2px solid black;
 }

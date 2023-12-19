@@ -27,6 +27,7 @@ const MONTHS = [
 function setup() {
 	var cnvHolder = document.getElementById("career-map");
 	var cnv = createCanvas(cnvHolder.offsetWidth, cnvHolder.offsetHeight);
+	cnv.id("map-canvas")
 	cnv.parent("career-map");
 }
 
@@ -76,6 +77,8 @@ function setupGrid() {
 
 	tile_width = width / total_squares_x;
 	tile_height = height / total_squares_y;
+
+	console.log(tile_height);
 }
 
 function drawSkillsGrid() {
@@ -302,4 +305,15 @@ function parse(json) {
 	educations = data["education"];
 	roles = data["experience"];
 	others = data["additional"];
+}
+
+function dragBorder(e) {
+	var dropScreenPercent = parseInt(e.clientX/window.screen.width*100);
+	document.getElementById("editor").style.width = dropScreenPercent + "%";
+	document.getElementById("career-map").style.width = (100 - dropScreenPercent) + "%";
+	document.getElementById("margin").style.left = dropScreenPercent + "%";
+	width = document.getElementById("career-map").offsetWidth;
+	document.getElementById("map-canvas").style.width = document.getElementById("career-map").offsetWidth + "px";
+	document.getElementById("map-canvas").setAttribute("width", document.getElementById("career-map").offsetWidth);
+	update();
 }
