@@ -274,12 +274,11 @@ function drawOthersGrid() {
 
 function writeText(t, x, y, desiredSize, maxWidth) {
 	textSize(desiredSize);
-	textAlign("center");
 	while (textWidth(t) > maxWidth - 10) {
 		desiredSize = desiredSize - 1;
 		textSize(desiredSize);
 	}
-	text(t, x + maxWidth/2, y);
+	text(t, x, y);
 }
 
 function update() {
