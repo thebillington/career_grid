@@ -29,6 +29,16 @@ class Experience {
     }
 }
 
+class Additional {
+    constructor(role, company, start_year, end_year, colour=randomColour()) {
+        this.role = role;
+        this.company = company;
+        this.start_year = start_year;
+        this.end_year = end_year;
+        this.colour = colour;
+    }
+}
+
 function randomColour() {
 	return "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0")
 }

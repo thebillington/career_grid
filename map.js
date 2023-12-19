@@ -57,7 +57,7 @@ function reloadData() {
 		new Experience("Appoly", "Junior Application Developer", 6, 2019, 9, 2020)
 	];
 	others = [
-		new Experience("Lead Volunteer", "Coder Dojo", 2022, 2023)
+		new Additional("Lead Volunteer", "Coder Dojo", 2022, 2023)
 	];
 }
 
@@ -71,7 +71,7 @@ function calculateYears() {
 		if (temp_arr[i].end_year > end_year) end_year = temp_arr[i].end_year;
 	}
 
-	work_years = highest_year - lowest_year;
+	work_years = highest_year - lowest_year + 1;
 }
 
 function setupGrid() {
@@ -102,9 +102,17 @@ function drawSkillsGrid() {
 
 	for (var i = 0; i < skills.length; i++) {
 		y_coord = offset_y + (i * tile_height);
+		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
+		fill("black");
 		writeText(skills[i].title, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
+			year = lowest_year + j;
+			if (year >= skills[i].start_year && year <= skills[i].end_year) {
+				fill(skills[i].colour);
+			} else {
+				noFill();
+			}
 			x_coord = offset_x + ((title_width + j) * tile_width);
 			rect(x_coord, y_coord, tile_width, tile_height);
 		}
@@ -116,11 +124,22 @@ function drawWorkExGrid() {
 	offset_x = horizontal_padding * tile_width;
 	offset_y = (title_height + 3 + skills.length) * tile_height ;
 
-	for (var i = 0; i < months; i++) {
-		y_coord = offset_y + (i * tile_height);
+	for (var month = 0; month < months; month++) {
+		y_coord = offset_y + (month * tile_height);
+		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
-		writeText(MONTHS[i], offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
+		fill("black");
+		writeText(MONTHS[month], offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
+			year = lowest_year + j;
+			for (k = 0; k < roles.length; k++) {
+				if (year >= roles[k].start_year && year <= roles[k].end_year) {
+					fill(roles[k].colour);
+					break;
+				} else {
+					noFill();
+				}
+			}
 			x_coord = offset_x + ((title_width + j) * tile_width);
 			rect(x_coord, y_coord, tile_width, tile_height);
 		}
@@ -135,9 +154,17 @@ function drawEducationGrid() {
 
 	for (var i = 0; i < educations.length; i++) {
 		y_coord = offset_y + (i * tile_height);
+		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
+		fill("black");
 		writeText(educations[i].school, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
+			year = lowest_year + j;
+			if (year >= educations[i].start_year && year <= educations[i].end_year) {
+				fill(educations[i].colour);
+			} else {
+				noFill();
+			}
 			x_coord = offset_x + ((title_width + j) * tile_width);
 			rect(x_coord, y_coord, tile_width, tile_height);
 		}
@@ -152,9 +179,17 @@ function drawRolesGrid() {
 
 	for (var i = 0; i < roles.length; i++) {
 		y_coord = offset_y + (i * tile_height);
+		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
+		fill("black");
 		writeText(roles[i].role, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
+			year = lowest_year + j;
+			if (year >= roles[i].start_year && year <= roles[i].end_year) {
+				fill(roles[i].colour);
+			} else {
+				noFill();
+			}
 			x_coord = offset_x + ((title_width + j) * tile_width);
 			rect(x_coord, y_coord, tile_width, tile_height);
 		}
@@ -168,9 +203,18 @@ function drawOthersGrid() {
 
 	for (var i = 0; i < others.length; i++) {
 		y_coord = offset_y + (i * tile_height);
+		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
+		fill("black");
 		writeText(others[i].role, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
+			year = lowest_year + j;
+			console.log(year);
+			if (year >= others[i].start_year && year <= others[i].end_year) {
+				fill(others[i].colour);
+			} else {
+				noFill();
+			}
 			x_coord = offset_x + ((title_width + j) * tile_width);
 			rect(x_coord, y_coord, tile_width, tile_height);
 		}
