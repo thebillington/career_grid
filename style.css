@@ -6,14 +6,20 @@
     height: 100%;
 }
 
-#file-editor {
+#json-editor {
     position: absolute;
     left: 5%;
     width: 90%;
-    height: 90%;
+    height: 80%;
     top: 5%;
     border: 2px solid black;
     resize: none;
+}
+
+#update-button {
+    position: absolute;
+    right: 5%;
+    top: 90%;
 }
 
 #career-map {

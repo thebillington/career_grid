@@ -30,11 +30,12 @@ function setup() {
 	cnv.parent("career-map");
 	loadExampleData();
 	setupGrid();
-	convertDataToJson();
+	serialize(skills, educations, roles, others);
 }
 
 function draw() {
     clear();
+	fill("black");
 	textSize(title_height * tile_height - 20);
 	textAlign("center");
 	text("Career Map", width/2, title_height * tile_height - 30);
@@ -65,10 +66,6 @@ function loadExampleData() {
 	others = [
 		new Additional("Lead Volunteer", "Coder Dojo", 2022, 2023)
 	];
-}
-
-function convertDataToJson() {
-	convertJson(skills, educations, roles, others);
 }
 
 function calculateYears() {
@@ -277,5 +274,26 @@ function writeText(t, x, y, desiredSize, maxWidth) {
 }
 
 function update() {
+	let data = parse(document.getElementById("json-editor").value);
+	setupGrid();
 	loop();
+}
+
+function serialize(skills, education, experience, additional) {
+    document.getElementById("json-editor").value = JSON.stringify(
+        {
+            "skills": skills,
+            "education": education,
+            "experience": experience,
+            "additional": additional
+        }, undefined, 4
+    );
+}
+
+function parse(json) {
+    data = JSON.parse(json);
+    skills = data["skills"];
+	educations = data["education"];
+	roles = data["experience"];
+	others = data["additional"];
 }
