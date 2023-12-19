@@ -28,9 +28,6 @@ function setup() {
 	var cnvHolder = document.getElementById("career-map");
 	var cnv = createCanvas(cnvHolder.offsetWidth, cnvHolder.offsetHeight);
 	cnv.parent("career-map");
-	loadExampleData();
-	setupGrid();
-	serialize(skills, educations, roles, others);
 }
 
 function draw() {
@@ -45,27 +42,6 @@ function draw() {
 	drawRolesGrid();
 	drawOthersGrid();
 	noLoop();
-}
-
-function loadExampleData() {
-	skills = [
-		new Skill("Programming", 2013, 2023),
-		new Skill("Teaching", 2016, 2023),
-		new Skill("Scheme of Work Design", 2016, 2019)
-	];
-	educations = [
-		new Education("Newcastle University", "Computer Science", 9, 2013, 7, 2016),
-		new Education("Leeds Trinity University", "PGCE Computer Science", 9, 2016, 7, 2017)
-	];
-	roles = [
-		new Experience("Sandwell Academy", "Teacher", 7, 2017, 6, 2019),
-		new Experience("Appoly", "Junior Developer", 6, 2019, 9, 2020),
-		new Experience("Student Beans", "Engineer", 9, 2020, 1, 2022),
-		new Experience("Student Beans", "Engineering Mgr", 1, 2022, 12, 2023)
-	];
-	others = [
-		new Additional("Lead Volunteer", "Coder Dojo", 2022, 2023)
-	];
 }
 
 function calculateYears() {
@@ -147,55 +123,53 @@ function drawWorkExGrid() {
 		writeText(MONTHS[month], offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
 			year = lowest_year + j;
-			has_valid_education = false;
-			for (k = 0; k < educations.length; k++) {
-				if (year >= educations[k].start_year && year <= educations[k].end_year) {
-					if (year == educations[k].start_year) {
-						console.log(month);
-						console.log(educations[k].start_month - 1);
-						if (month >= educations[k].start_month - 1) {
-							fill(educations[k].colour);
-							has_valid_education = true;
+			has_valid_experience = false;
+			for (k = 0; k < roles.length; k++) {
+				if (year >= roles[k].start_year && year <= roles[k].end_year) {
+					if (year == roles[k].start_year) {
+						if (month >= roles[k].start_month - 1) {
+							fill(roles[k].colour);
+							has_valid_experience = true;
 							break;
 						} else {
 							noFill();
 						}
-					} else if (year == educations[k].end_year) {
-						if (month <= educations[k].end_month - 1) {
-							fill(educations[k].colour);
-							has_valid_education = true;
+					} else if (year == roles[k].end_year) {
+						if (month <= roles[k].end_month - 1) {
+							fill(roles[k].colour);
+							has_valid_experience = true;
 							break;
 						} else {
 							noFill();
 						}
 					} else {
-						fill(educations[k].colour);
-						has_valid_education = true;
+						fill(roles[k].colour);
+						has_valid_experience = true;
 						break;
 					}
 				} else {
 					noFill();
 				}
 			}
-			if (!has_valid_education) {
-				for (k = 0; k < roles.length; k++) {
-					if (year >= roles[k].start_year && year <= roles[k].end_year) {
-						if (year == roles[k].start_year) {
-							if (month >= roles[k].start_month - 1) {
-								fill(roles[k].colour);
+			if(!has_valid_experience) {
+				for (k = 0; k < educations.length; k++) {
+					if (year >= educations[k].start_year && year <= educations[k].end_year) {
+						if (year == educations[k].start_year) {
+							if (month >= educations[k].start_month - 1) {
+								fill(educations[k].colour);
 								break;
 							} else {
 								noFill();
 							}
-						} else if (year == roles[k].end_year) {
-							if (month <= roles[k].end_month - 1) {
-								fill(roles[k].colour);
+						} else if (year == educations[k].end_year) {
+							if (month <= educations[k].end_month - 1) {
+								fill(educations[k].colour);
 								break;
 							} else {
 								noFill();
 							}
 						} else {
-							fill(roles[k].colour);
+							fill(educations[k].colour);
 							break;
 						}
 					} else {
@@ -253,7 +227,7 @@ function drawRolesGrid() {
 		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
 		fill("black");
-		writeText(roles[i].company + " @ " + roles[i].role, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
+		writeText(roles[i].role + " @ " + roles[i].company, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
 			year = lowest_year + j;
 			if (year >= roles[i].start_year && year <= roles[i].end_year) {
@@ -306,7 +280,7 @@ function writeText(t, x, y, desiredSize, maxWidth) {
 }
 
 function update() {
-	let data = parse(document.getElementById("json-editor").value);
+	parse(document.getElementById("json-editor").value);
 	setupGrid();
 	loop();
 }
