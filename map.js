@@ -281,7 +281,7 @@ function drawOthersGrid() {
 		noFill();
 		rect(offset_x, y_coord, title_width * tile_width, tile_height);
 		fill("black");
-		writeText(others[i].role, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
+		writeText(others[i].role + " @ " + others[i].company, offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
 			year = lowest_year + j;
 			if (year >= others[i].start_year && year <= others[i].end_year) {
