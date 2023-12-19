@@ -54,8 +54,8 @@ function loadExampleData() {
 		new Skill("Scheme of Work Design", 2016, 2019)
 	];
 	educations = [
-		new Education("Newcastle University", "Computer Science", 2013, 2016),
-		new Education("Leeds Trinity University", "PGCE Computer Science", 2016, 2017)
+		new Education("Newcastle University", "Computer Science", 9, 2013, 7, 2016),
+		new Education("Leeds Trinity University", "PGCE Computer Science", 9, 2016, 7, 2017)
 	];
 	roles = [
 		new Experience("Sandwell Academy", "Teacher", 7, 2017, 6, 2019),
@@ -147,28 +147,60 @@ function drawWorkExGrid() {
 		writeText(MONTHS[month], offset_x + 2, y_coord + tile_height - 4, tile_height - 4, title_width * tile_width);
 		for (var j = 0; j < work_years; j++) {
 			year = lowest_year + j;
-			for (k = 0; k < roles.length; k++) {
-				if (year >= roles[k].start_year && year <= roles[k].end_year) {
-					if (year == roles[k].start_year) {
-						if (month >= roles[k].start_month - 1) {
-							fill(roles[k].colour);
+			has_valid_education = false;
+			for (k = 0; k < educations.length; k++) {
+				if (year >= educations[k].start_year && year <= educations[k].end_year) {
+					if (year == educations[k].start_year) {
+						console.log(month);
+						console.log(educations[k].start_month - 1);
+						if (month >= educations[k].start_month - 1) {
+							fill(educations[k].colour);
+							has_valid_education = true;
 							break;
 						} else {
 							noFill();
 						}
-					} else if (year == roles[k].end_year) {
-						if (month <= roles[k].end_month - 1) {
-							fill(roles[k].colour);
+					} else if (year == educations[k].end_year) {
+						if (month <= educations[k].end_month - 1) {
+							fill(educations[k].colour);
+							has_valid_education = true;
 							break;
 						} else {
 							noFill();
 						}
 					} else {
-						fill(roles[k].colour);
+						fill(educations[k].colour);
+						has_valid_education = true;
 						break;
 					}
 				} else {
 					noFill();
+				}
+			}
+			if (!has_valid_education) {
+				for (k = 0; k < roles.length; k++) {
+					if (year >= roles[k].start_year && year <= roles[k].end_year) {
+						if (year == roles[k].start_year) {
+							if (month >= roles[k].start_month - 1) {
+								fill(roles[k].colour);
+								break;
+							} else {
+								noFill();
+							}
+						} else if (year == roles[k].end_year) {
+							if (month <= roles[k].end_month - 1) {
+								fill(roles[k].colour);
+								break;
+							} else {
+								noFill();
+							}
+						} else {
+							fill(roles[k].colour);
+							break;
+						}
+					} else {
+						noFill();
+					}
 				}
 			}
 			x_coord = offset_x + ((title_width + j) * tile_width);

@@ -8,10 +8,12 @@ class Skill {
 }
 
 class Education {
-    constructor(school, course, start_year, end_year, colour=randomColour()) {
+    constructor(school, course, start_month, start_year, end_month, end_year, colour=randomColour()) {
         this.school = school;
         this.course = course;
+        this.start_month = start_month;
         this.start_year = start_year;
+        this.end_month = end_month;
         this.end_year = end_year;
         this.colour = colour;
     }
@@ -22,8 +24,8 @@ class Experience {
         this.role = role;
         this.company = company;
         this.start_month = start_month;
-        this.end_month = end_month;
         this.start_year = start_year;
+        this.end_month = end_month;
         this.end_year = end_year;
         this.colour = colour;
     }
